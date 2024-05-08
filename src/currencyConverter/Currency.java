@@ -43,59 +43,43 @@ public class Currency {
 	public void setExchangeValues(String key, Double value) {
 		this.exchangeValues.put(key, value);
 	}
+
+	public void convertBaseCurrency(String currency) {
+		Double usaConversion = 1 / this.exchangeValues.get(currency);
+		System.err.println(usaConversion);
+		for (HashMap.Entry<String, Double> entry : this.exchangeValues.entrySet()) {
+			String key = entry.getKey();
+			Double value = entry.getValue();
+			this.exchangeValues.put(key, usaConversion * value);
+		}
+	}
 	
 	// Set default values for a currency
 	public void defaultValues() {
 		String currency = this.name;
-		
+		this.exchangeValues.put("USD", 1.00);
+		this.exchangeValues.put("EUR", 0.93);
+		this.exchangeValues.put("GBP", 0.66);
+		this.exchangeValues.put("CHF", 1.01);
+		this.exchangeValues.put("CNY", 6.36);
+		this.exchangeValues.put("JPY", 123.54);		
 		switch (currency) {	
 			case "US Dollar":
-				this.exchangeValues.put("USD", 1.00);
-				this.exchangeValues.put("EUR", 0.93);
-				this.exchangeValues.put("GBP", 0.66);
-				this.exchangeValues.put("CHF", 1.01);
-				this.exchangeValues.put("CNY", 6.36);
-				this.exchangeValues.put("JPY", 123.54);
 				break;
 			case "Euro":
-				this.exchangeValues.put("USD", 1.073);
-				this.exchangeValues.put("EUR", 1.00);
-				this.exchangeValues.put("GBP", 0.71);
-				this.exchangeValues.put("CHF", 1.08);
-				this.exchangeValues.put("CNY", 6.83);
-				this.exchangeValues.put("JPY", 132.57);
+				convertBaseCurrency("EUR");
 				break;
 			case "British Pound":
-				this.exchangeValues.put("USD", 1.51);
-				this.exchangeValues.put("EUR", 1.41);
-				this.exchangeValues.put("GBP", 1.00);
-				this.exchangeValues.put("CHF", 1.52);
-				this.exchangeValues.put("CNY", 9.60);
-				this.exchangeValues.put("JPY", 186.41);
+				convertBaseCurrency("GBP");
 				break;
 			case "Swiss Franc":
-				this.exchangeValues.put("USD", 0.99);
-				this.exchangeValues.put("EUR", 0.93);
-				this.exchangeValues.put("GBP", 0.66);
-				this.exchangeValues.put("CHF", 1.00);
-				this.exchangeValues.put("CNY", 6.33);
-				this.exchangeValues.put("JPY", 122.84);
+				convertBaseCurrency("CHF");
 				break;
 			case "Chinese Yuan Renminbi":
-				this.exchangeValues.put("USD", 0.16);
-				this.exchangeValues.put("EUR", 0.15);
-				this.exchangeValues.put("GBP", 0.11);
-				this.exchangeValues.put("CHF", 0.16);
-				this.exchangeValues.put("CNY", 1.00);
-				this.exchangeValues.put("JPY", 19.41);
+				convertBaseCurrency("CNY");
 				break;
 			case "Japanese Yen":
-				this.exchangeValues.put("USD", 0.008);
-				this.exchangeValues.put("EUR", 0.007);
-				this.exchangeValues.put("GBP", 0.005);
-				this.exchangeValues.put("CHF", 0.008);
-				this.exchangeValues.put("CNY", 0.051);
-				this.exchangeValues.put("JPY", 1.000);
+				convertBaseCurrency("JPY");
 				break;
 		}
 	}
