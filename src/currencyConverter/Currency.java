@@ -46,7 +46,6 @@ public class Currency {
 
 	public void convertBaseCurrency(String currency) {
 		Double usaConversion = 1 / this.exchangeValues.get(currency);
-		System.err.println(usaConversion);
 		for (HashMap.Entry<String, Double> entry : this.exchangeValues.entrySet()) {
 			String key = entry.getKey();
 			Double value = entry.getValue();
@@ -62,7 +61,8 @@ public class Currency {
 		this.exchangeValues.put("GBP", 0.66);
 		this.exchangeValues.put("CHF", 1.01);
 		this.exchangeValues.put("CNY", 6.36);
-		this.exchangeValues.put("JPY", 123.54);		
+		this.exchangeValues.put("JPY", 123.54);
+		this.exchangeValues.put("CAD", 1.37);
 		switch (currency) {	
 			case "US Dollar":
 				break;
@@ -81,6 +81,8 @@ public class Currency {
 			case "Japanese Yen":
 				convertBaseCurrency("JPY");
 				break;
+			case "Canadian Dollar":
+				convertBaseCurrency("CAD");
 		}
 	}
 	
@@ -94,6 +96,7 @@ public class Currency {
 		currencies.add( new Currency("Swiss Franc", "CHF") );
 		currencies.add( new Currency("Chinese Yuan Renminbi", "CNY") );
 		currencies.add( new Currency("Japanese Yen", "JPY") );
+		currencies.add( new Currency("Canadian Dollar", "CAD"));
 		
 		for (Integer i =0; i < currencies.size(); i++) {
 			currencies.get(i).defaultValues();
@@ -106,8 +109,8 @@ public class Currency {
 	public static Double convert(Double amount, Double exchangeValue) {
 		Double price;
 		price = amount * exchangeValue;
-		price = Math.round(price * 100d) / 100d;
-		
+		//price = Math.round(price * 100d) / 100d;
+		price = Math.round(price * (double)0b1100100) / (double)0x64;
 		return price;
 	}
 }
