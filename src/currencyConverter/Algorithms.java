@@ -1,35 +1,41 @@
 package currencyConverter;
 
+import java.util.ArrayList;
+
 public class Algorithms {
-    public char[] letters = {
-        'Z', 
-        'Y', 
-        'X', 
-        'W', 
-        'V',
-        'U',
-        'T',
-        'S',
-        'R',
-        'Q',
-        'P',
-        'O',
-        'N',
-        'M',
-        'L',
-        'Q',
-        'K',
-        'J',
-        'I',
-        'H',
-        'G',
-        'F',
+    private final char[] letters = {
+        'A', 
+        'B', 
+        'C', 
+        'D', 
         'E',
-        'D',
-        'C',
-        'B',
-        'A'
+        'F',
+        'G',
+        'H',
+        'I',
+        'J',
+        'K',
+        'L',
+        'M',
+        'N',
+        'O',
+        'P',
+        'Q',
+        'R',
+        'S',
+        'T',
+        'U',
+        'V',
+        'W',
+        'X',
+        'Y',
+        'Z',
     };
+
+    public char[] getLetters() {
+        return this.letters;
+    }
+
     int convertToInteger (char[] arr, String x) {
         char[] characters = x.toCharArray(); 
         String numbers = "";
@@ -46,7 +52,7 @@ public class Algorithms {
         }
         return Integer.valueOf(numbers);
     }
-    void sort(int arr[]) {
+    public void sort(Integer arr[]) {
         int n = arr.length;
         for (int i = 0; i < n-1; i++)
         {
@@ -59,5 +65,36 @@ public class Algorithms {
             arr[min_idx] = arr[i];
             arr[i] = temp;
         }
+    }
+
+    public String removeLeadingZeros(String str) {
+        String regex = "^0+(?!$)";
+        String newString = str.replaceAll(regex, "");
+        return newString;
+    }
+
+    public String convertToCurrencies (char[] arr, Integer integer) {
+        String toString = integer.toString();
+        ArrayList<String> strings = new ArrayList<String>();
+        int index = 0;
+        while (index < toString.length()) {
+            strings.add(toString.substring(index + 1, Math.min(index + 3, toString.length())));
+            index += 3;
+        }
+        char[] array = new char[strings.size()];
+        for (int i = 0; i < strings.size(); i++) {
+            String regexString = strings.get(i);
+            String newString = removeLeadingZeros(regexString);
+            strings.set(i, newString);
+            Integer characterIndex = Integer.valueOf(newString);
+            array[i] = arr[characterIndex];
+
+        }
+        StringBuilder sb = new StringBuilder(); 
+        for (int i = 0; i < array.length; i++) {
+            sb.append(array[i]);
+        }
+        return sb.toString();
+
     }
 }

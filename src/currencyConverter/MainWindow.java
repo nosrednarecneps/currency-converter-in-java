@@ -24,7 +24,7 @@ public class MainWindow extends JFrame {
 	private JPanel contentPane;
 	private JTextField fieldAmount;
 	private ArrayList<Currency> currencies = Currency.init();
-	
+
 	/**
 	 * Create the mainWindow frame
 	 */
