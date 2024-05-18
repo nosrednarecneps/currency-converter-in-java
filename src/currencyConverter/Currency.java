@@ -58,7 +58,6 @@ public class Currency {
 		currencies.add( new Currency("CNY") );
 		currencies.add( new Currency("JPY") );
 		currencies.add( new Currency("CAD"));
-		System.out.println("1");
 		for (Integer i =0; i < currencies.size(); i++) {
 			currencies.get(i).defaultValues();
 		}	

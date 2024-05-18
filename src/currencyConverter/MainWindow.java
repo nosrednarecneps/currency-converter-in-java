@@ -30,7 +30,6 @@ public class MainWindow extends JFrame {
 		Algorithms algorithmsObject = new Algorithms();
 		algorithmsObject.orderCurrencies();
 		ArrayList<String> shortNames = algorithmsObject.getShortNames();
-		System.out.println("size: " + shortNames.size());
 		ArrayList<Currency> storedCurrencies = new ArrayList<Currency>();
 		for (int i = 0; i < this.currencies.size(); i++) {
 			storedCurrencies.add(i, this.currencies.get(i));

@@ -159,6 +159,5 @@ public class Algorithms {
             this.shortNames.set(i, convertedShortName);
 		}
         setShortNames(this.shortNames);
-        System.out.println("orderCurrencies populated shortNames: " + this.shortNames);
 	}
 }
