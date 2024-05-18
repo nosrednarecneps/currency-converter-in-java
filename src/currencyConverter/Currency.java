@@ -6,24 +6,12 @@ import java.util.HashMap;
 public class Currency {
 	Algorithms algorithmsObject = new Algorithms();
 
-	private String name;
 	private String shortName;
 	private HashMap<String, Double> exchangeValues = algorithmsObject.getExchangeValues();
 
 	// "Currency" Constructor
-	public Currency(String nameValue, String shortNameValue) {
-		this.name = nameValue;
+	public Currency(String shortNameValue) {
 		this.shortName = shortNameValue;
-	}
-	
-	// Getter for name
-	public String getName() {
-		return this.name;
-	}
-	
-	// Setter for name
-	public void setName(String name) {
-		this.name = name;
 	}
 	
 	// Getter for shortName
@@ -57,40 +45,19 @@ public class Currency {
 	
 	// Set default values for a currency
 	public void defaultValues() {
-		String currency = this.name;
-		switch (currency) {	
-			case "US Dollar":
-				break;
-			case "Euro":
-				convertBaseCurrency("EUR");
-				break;
-			case "British Pound":
-				convertBaseCurrency("GBP");
-				break;
-			case "Swiss Franc":
-				convertBaseCurrency("CHF");
-				break;
-			case "Chinese Yuan Renminbi":
-				convertBaseCurrency("CNY");
-				break;
-			case "Japanese Yen":
-				convertBaseCurrency("JPY");
-				break;
-			case "Canadian Dollar":
-				convertBaseCurrency("CAD");
-		}
-	}
-	
+		String currency = this.shortName;
+		convertBaseCurrency(currency);
+	}		
 	// Initialize currencies
 	public static ArrayList<Currency> init() {
 		ArrayList<Currency> currencies = new ArrayList<Currency>();
-		currencies.add( new Currency("US Dollar", "USD") );
-		currencies.add( new Currency("Euro", "EUR") );
-		currencies.add( new Currency("British Pound", "GBP") );
-		currencies.add( new Currency("Swiss Franc", "CHF") );
-		currencies.add( new Currency("Chinese Yuan Renminbi", "CNY") );
-		currencies.add( new Currency("Japanese Yen", "JPY") );
-		currencies.add( new Currency("Canadian Dollar", "CAD"));
+		currencies.add( new Currency("USD") );
+		currencies.add( new Currency("EUR") );
+		currencies.add( new Currency("GBP") );
+		currencies.add( new Currency("CHF") );
+		currencies.add( new Currency("CNY") );
+		currencies.add( new Currency("JPY") );
+		currencies.add( new Currency("CAD"));
 		System.out.println("1");
 		for (Integer i =0; i < currencies.size(); i++) {
 			currencies.get(i).defaultValues();

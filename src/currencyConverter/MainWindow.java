@@ -191,7 +191,7 @@ public class MainWindow extends JFrame {
 	// Fill comboBox with currencies name
 	public static void populate(JComboBox<String> comboBox, ArrayList<Currency> currencies) {
 		for (Integer i = 0; i < currencies.size(); i++) {
-			comboBox.addItem( currencies.get(i).getName() );
+			comboBox.addItem( currencies.get(i).getShortName() );
 		}		
 	}
 	
@@ -203,7 +203,7 @@ public class MainWindow extends JFrame {
 		
 		// Find shortname for the second currency
 		for (Integer i = 0; i < currencies.size(); i++) {
-			if (currencies.get(i).getName() == currency2) {
+			if (currencies.get(i).getShortName() == currency2) {
 				shortNameCurrency2 = currencies.get(i).getShortName();
 				break;
 			}
@@ -212,7 +212,7 @@ public class MainWindow extends JFrame {
 		// Find exchange value and call convert() to calcul the new price
 		if (shortNameCurrency2 != null) {
 			for (Integer i = 0; i < currencies.size(); i++) {
-				if (currencies.get(i).getName() == currency1) {
+				if (currencies.get(i).getShortName() == currency1) {
 					exchangeValue = currencies.get(i).getExchangeValues().get(shortNameCurrency2);
 					price = Currency.convert(amount, exchangeValue);
 					break;

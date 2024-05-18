@@ -14,7 +14,7 @@ public class Algorithms {
         exchangeValues.put("JPY", 123.54);
         exchangeValues.put("CAD", 1.37);
     }
-    private static final char[] letters = {
+    private static final char[] letters = { 
         'A', 
         'B', 
         'C', 
