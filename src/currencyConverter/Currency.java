@@ -8,7 +8,7 @@ public class Currency {
 
 	private String name;
 	private String shortName;
-	private HashMap<String, Double> exchangeValues = new HashMap<String, Double>();
+	private HashMap<String, Double> exchangeValues = algorithmsObject.getExchangeValues();
 
 	// "Currency" Constructor
 	public Currency(String nameValue, String shortNameValue) {
@@ -16,7 +16,6 @@ public class Currency {
 		this.shortName = shortNameValue;
 	}
 	
-	// Getter for shortNames as Array
 	// Getter for name
 	public String getName() {
 		return this.name;
@@ -59,13 +58,6 @@ public class Currency {
 	// Set default values for a currency
 	public void defaultValues() {
 		String currency = this.name;
-		this.exchangeValues.put("USD", 1.00);
-		this.exchangeValues.put("EUR", 0.93);
-		this.exchangeValues.put("GBP", 0.66);
-		this.exchangeValues.put("CHF", 1.01);
-		this.exchangeValues.put("CNY", 6.36);
-		this.exchangeValues.put("JPY", 123.54);
-		this.exchangeValues.put("CAD", 1.37);		
 		switch (currency) {	
 			case "US Dollar":
 				break;
@@ -90,7 +82,7 @@ public class Currency {
 	}
 	
 	// Initialize currencies
-	public ArrayList<Currency> init() {
+	public static ArrayList<Currency> init() {
 		ArrayList<Currency> currencies = new ArrayList<Currency>();
 		currencies.add( new Currency("US Dollar", "USD") );
 		currencies.add( new Currency("Euro", "EUR") );
@@ -99,12 +91,13 @@ public class Currency {
 		currencies.add( new Currency("Chinese Yuan Renminbi", "CNY") );
 		currencies.add( new Currency("Japanese Yen", "JPY") );
 		currencies.add( new Currency("Canadian Dollar", "CAD"));
-
+		System.out.println("1");
 		for (Integer i =0; i < currencies.size(); i++) {
 			currencies.get(i).defaultValues();
 		}	
 		return currencies;
 	}
+
 
 	// Convert a currency to another
 	public static Double convert(Double amount, Double exchangeValue) {

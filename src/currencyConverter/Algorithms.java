@@ -1,8 +1,19 @@
 package currencyConverter;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 
 public class Algorithms {
+    public Algorithms() {
+        exchangeValues.put("USD", 1.00);
+        exchangeValues.put("EUR", 0.93);
+        exchangeValues.put("GBP", 0.66);
+        exchangeValues.put("CHF", 1.01);
+        exchangeValues.put("CNY", 6.36);
+        exchangeValues.put("JPY", 123.54);
+        exchangeValues.put("CAD", 1.37);
+    }
     private static final char[] letters = {
         'A', 
         'B', 
@@ -31,10 +42,28 @@ public class Algorithms {
         'Y',
         'Z',
     };
+	private HashMap<String, Double> exchangeValues = new HashMap<String, Double>();
+    private ArrayList<String> shortNames = new ArrayList<String>();
 
     static public char[] getLetters() {
         return Algorithms.letters;
     }
+
+    public ArrayList<String> getShortNames() {
+        return this.shortNames;
+    }
+
+    public void setShortNames(ArrayList<String> shortNames) {
+        this.shortNames = shortNames;
+    }
+
+    public HashMap<String, Double> getExchangeValues() {
+        return this.exchangeValues;
+    }
+
+	public void setExchangeValues(String key, Double value) {
+		this.exchangeValues.put(key, value);
+	}
 
     static int convertToInteger (char[] arr, String x) {
         char[] characters = x.toCharArray(); 
@@ -97,4 +126,39 @@ public class Algorithms {
         return sb.toString();
     }
 
+
+	public void iterateUsingForEach(ArrayList<String> arr, HashMap <String, Double> map) {
+		@SuppressWarnings("rawtypes")
+		Iterator iterator = map.entrySet().iterator();
+		Integer i = 0;
+    	while (iterator.hasNext()) {
+			@SuppressWarnings("rawtypes")
+			HashMap.Entry entry = (HashMap.Entry)iterator.next();
+			String key = ((String)entry.getKey());
+			arr.add(key);
+			i++;
+    	}
+	}
+
+    public void getShortNamesAsArray(String[] arr) {
+		arr = this.shortNames.toArray(arr);
+	}
+
+	public void orderCurrencies() {
+		iterateUsingForEach(this.shortNames, this.exchangeValues);
+		String[] shortNames = new String[this.shortNames.size()];
+		Integer[] integerShortNames = new Integer[this.shortNames.size()];
+		char[] letters = Algorithms.getLetters();
+		getShortNamesAsArray(shortNames);
+		for (int i = 0; i < shortNames.length; i++) {
+			integerShortNames[i] = Algorithms.convertToInteger(letters, shortNames[i]);
+		}					
+		sort(integerShortNames);
+		for (int i = 0; i < integerShortNames.length; i++) {
+			String convertedShortName = convertToCurrencies(letters, integerShortNames[i]);
+            this.shortNames.set(i, convertedShortName);
+		}
+        setShortNames(this.shortNames);
+        System.out.println("orderCurrencies populated shortNames: " + this.shortNames);
+	}
 }
