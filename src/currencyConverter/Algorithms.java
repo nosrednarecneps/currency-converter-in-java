@@ -3,7 +3,7 @@ package currencyConverter;
 import java.util.ArrayList;
 
 public class Algorithms {
-    private final char[] letters = {
+    private static final char[] letters = {
         'A', 
         'B', 
         'C', 
@@ -32,11 +32,11 @@ public class Algorithms {
         'Z',
     };
 
-    public char[] getLetters() {
-        return this.letters;
+    static public char[] getLetters() {
+        return Algorithms.letters;
     }
 
-    int convertToInteger (char[] arr, String x) {
+    static int convertToInteger (char[] arr, String x) {
         char[] characters = x.toCharArray(); 
         String numbers = "";
         for (int i = 0; i < characters.length; i++) {
@@ -95,6 +95,6 @@ public class Algorithms {
             sb.append(array[i]);
         }
         return sb.toString();
-
     }
+
 }

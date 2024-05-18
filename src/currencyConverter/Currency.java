@@ -2,7 +2,6 @@ package currencyConverter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 
 public class Currency {
 	Algorithms algorithmsObject = new Algorithms();
@@ -10,7 +9,6 @@ public class Currency {
 	private String name;
 	private String shortName;
 	private HashMap<String, Double> exchangeValues = new HashMap<String, Double>();
-	private ArrayList<String> shortNames = new ArrayList<String>();
 
 	// "Currency" Constructor
 	public Currency(String nameValue, String shortNameValue) {
@@ -70,7 +68,6 @@ public class Currency {
 		this.exchangeValues.put("CAD", 1.37);		
 		switch (currency) {	
 			case "US Dollar":
-				orderCurrencies();
 				break;
 			case "Euro":
 				convertBaseCurrency("EUR");
@@ -93,7 +90,7 @@ public class Currency {
 	}
 	
 	// Initialize currencies
-	public static ArrayList<Currency> init() {
+	public ArrayList<Currency> init() {
 		ArrayList<Currency> currencies = new ArrayList<Currency>();
 		currencies.add( new Currency("US Dollar", "USD") );
 		currencies.add( new Currency("Euro", "EUR") );
@@ -106,40 +103,7 @@ public class Currency {
 		for (Integer i =0; i < currencies.size(); i++) {
 			currencies.get(i).defaultValues();
 		}	
-			
-		
 		return currencies;
-	}
-
-    public void iterateUsingForEach(ArrayList<String> arr, HashMap <String, Double> map) {
-		Iterator iterator = map.entrySet().iterator();
-		Integer i = 0;
-    	while (iterator.hasNext()) {
-			HashMap.Entry entry = (HashMap.Entry)iterator.next();
-			String key = ((String)entry.getKey());
-			arr.add(key);
-			i++;
-    	}
-	}
-
-	public void getShortNamesAsArray(String[] arr) {
-		arr = this.shortNames.toArray(arr);
-	}
-
-	public void orderCurrencies() {
-				iterateUsingForEach(this.shortNames, this.exchangeValues);
-				String[] shortNames = new String[this.shortNames.size()];
-				Integer[] integerShortNames = new Integer[this.shortNames.size()];
-				char[] letters = algorithmsObject.getLetters();
-				getShortNamesAsArray(shortNames);
-				for (int i = 0; i < shortNames.length; i++) {
-					integerShortNames[i] = algorithmsObject.convertToInteger(letters, shortNames[i]);
-				}					
-				algorithmsObject.sort(integerShortNames);
-				for (int i = 0; i < integerShortNames.length; i++) {
-					String convertedShortName = algorithmsObject.convertToCurrencies(letters, integerShortNames[i]);
-					System.out.println(convertedShortName);
-				}
 	}
 
 	// Convert a currency to another
