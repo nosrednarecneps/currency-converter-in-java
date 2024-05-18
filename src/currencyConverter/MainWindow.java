@@ -25,10 +25,36 @@ public class MainWindow extends JFrame {
 	private JTextField fieldAmount;
 	private ArrayList<Currency> currencies = Currency.init();
 
+
+	public void changeCurrencyOrder() {
+		Algorithms algorithmsObject = new Algorithms();
+		algorithmsObject.orderCurrencies();
+		ArrayList<String> shortNames = algorithmsObject.getShortNames();
+		System.out.println("size: " + shortNames.size());
+		ArrayList<Currency> storedCurrencies = new ArrayList<Currency>();
+		for (int i = 0; i < this.currencies.size(); i++) {
+			storedCurrencies.add(i, this.currencies.get(i));
+		}
+		for (int i = 0; i < this.currencies.size(); i++) {
+			int j = 0;
+			while (true) {
+				Currency element = storedCurrencies.get(j);
+				if (element.getShortName().equals(shortNames.get(i))) {
+					currencies.set(i, element);
+					j = j - j;
+					break;
+				} else {
+					j++;
+				}
+			}
+		}
+	}
+
 	/**
 	 * Create the mainWindow frame
 	 */
 	public MainWindow() {
+		changeCurrencyOrder();
 		setTitle(BUNDLE.getString("MainWindow.this.title")); //$NON-NLS-1$
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 589, 300);
