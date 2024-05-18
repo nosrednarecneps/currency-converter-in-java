@@ -24,29 +24,24 @@ public class MainWindow extends JFrame {
 	private JPanel contentPane;
 	private JTextField fieldAmount;
 	private ArrayList<Currency> currencies = Currency.init();
+	Algorithms algorithmsObject = new Algorithms();
+	ArrayList<String> shortNames = algorithmsObject.getShortNames();
 
-
-	public void changeCurrencyOrder() {
-		Algorithms algorithmsObject = new Algorithms();
-		algorithmsObject.orderCurrencies();
-		ArrayList<String> shortNames = algorithmsObject.getShortNames();
-		ArrayList<Currency> storedCurrencies = new ArrayList<Currency>();
-		for (int i = 0; i < this.currencies.size(); i++) {
-			storedCurrencies.add(i, this.currencies.get(i));
-		}
-		for (int i = 0; i < this.currencies.size(); i++) {
-			int j = 0;
-			while (true) {
-				Currency element = storedCurrencies.get(j);
-				if (element.getShortName().equals(shortNames.get(i))) {
-					currencies.set(i, element);
-					j = j - j;
-					break;
-				} else {
-					j++;
-				}
-			}
-		}
+	public void changeCurrencyOrder() {	
+    	algorithmsObject.orderCurrencies();
+    	ArrayList<Currency> sortedCurrencies = new ArrayList<>(this.currencies);
+    	for (int i = 0; i < sortedCurrencies.size() - 1; i++) {
+        	int minIndex = i;
+        	for (int j = i + 1; j < sortedCurrencies.size(); j++) {
+            	if (sortedCurrencies.get(j).getShortName().compareTo(sortedCurrencies.get(minIndex).getShortName()) < 0) {
+                	minIndex = j;
+            	}
+        	}
+        	Currency temp = sortedCurrencies.get(minIndex);
+        	sortedCurrencies.set(minIndex, sortedCurrencies.get(i));
+        	sortedCurrencies.set(i, temp);
+    	}
+    	this.currencies = sortedCurrencies;
 	}
 
 	/**
