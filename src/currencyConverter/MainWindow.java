@@ -27,22 +27,32 @@ public class MainWindow extends JFrame {
 	Algorithms algorithmsObject = new Algorithms();
 	ArrayList<String> shortNames = algorithmsObject.getShortNames();
 
-	public void changeCurrencyOrder() {	
-    	algorithmsObject.orderCurrencies();
-    	ArrayList<Currency> sortedCurrencies = new ArrayList<>(this.currencies);
-    	for (int i = 0; i < sortedCurrencies.size() - 1; i++) {
-        	int minIndex = i;
-        	for (int j = i + 1; j < sortedCurrencies.size(); j++) {
-            	if (sortedCurrencies.get(j).getShortName().compareTo(sortedCurrencies.get(minIndex).getShortName()) < 0) {
-                	minIndex = j;
-            	}
-        	}
-        	Currency temp = sortedCurrencies.get(minIndex);
-        	sortedCurrencies.set(minIndex, sortedCurrencies.get(i));
-        	sortedCurrencies.set(i, temp);
-    	}
-    	this.currencies = sortedCurrencies;
-	}
+    public void changeCurrencyOrder() {
+        algorithmsObject.orderCurrencies();
+        ArrayList<Currency> sortedCurrencies = new ArrayList<>();
+
+        for (Currency currency : this.currencies) {
+            int insertIndex = findInsertionPoint(sortedCurrencies, currency);
+            sortedCurrencies.add(insertIndex, currency);
+        }
+        this.currencies = sortedCurrencies;
+    }
+
+    private int findInsertionPoint(ArrayList<Currency> sortedCurrencies, Currency currency) {
+        int low = 0;
+        int high = sortedCurrencies.size() - 1;
+        while (low <= high) {
+            int mid = (low + high) / 2;
+            Currency midCurrency = sortedCurrencies.get(mid);
+            int comparison = currency.getShortName().compareTo(midCurrency.getShortName());
+            if (comparison < 0) {
+                high = mid - 1;
+            } else {
+                low = mid + 1;
+            }
+        }
+        return low;
+    }
 
 	/**
 	 * Create the mainWindow frame
