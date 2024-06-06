@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 public class Algorithms {
-    public Algorithms() {
+    protected Algorithms() {
         exchangeValues.put("USD", 1.00);
         exchangeValues.put("EUR", 0.93);
         exchangeValues.put("GBP", 0.66);
@@ -53,7 +53,7 @@ public class Algorithms {
         return this.shortNames;
     }
 
-    public void setShortNames(ArrayList<String> shortNames) {
+    protected void setShortNames(ArrayList<String> shortNames) {
         this.shortNames = shortNames;
     }
 
@@ -61,7 +61,7 @@ public class Algorithms {
         return this.exchangeValues;
     }
 
-	public void setExchangeValues(String key, Double value) {
+	protected void setExchangeValues(String key, Double value) {
 		this.exchangeValues.put(key, value);
 	}
 
@@ -144,7 +144,7 @@ public class Algorithms {
 		arr = this.shortNames.toArray(arr);
 	}
 
-	public void orderCurrencies() {
+	protected void orderCurrencies() {
 		iterateUsingForEach(this.shortNames, this.exchangeValues);
 		String[] shortNames = new String[this.shortNames.size()];
 		Integer[] integerShortNames = new Integer[this.shortNames.size()];
